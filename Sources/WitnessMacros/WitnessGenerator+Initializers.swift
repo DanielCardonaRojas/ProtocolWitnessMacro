@@ -256,10 +256,12 @@ extension WitnessGenerator {
       }
 })
 
-    return .init(parametersBuilder: {
-      for param in parameters {
-        param
+    return .init(
+      parametersBuilder: {
+        for param in parameters {
+          param.with(\.leadingTrivia, .newline)
+        }
       }
-    })
+    )
   }
 }
