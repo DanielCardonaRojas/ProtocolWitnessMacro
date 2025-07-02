@@ -7,7 +7,7 @@
 import Witness
 import Shared
 
-@Witnessed([.utilities, .conformanceInit])
+@Witnessed([.utilities, .conformanceInit, .synthesizedConformance])
 protocol Combinable {
   func combine(_ other: Self) -> Self
 }
