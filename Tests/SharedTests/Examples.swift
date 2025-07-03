@@ -7,9 +7,29 @@
 import Witness
 import Shared
 
-@Witnessed([.utilities, .conformanceInit, .synthesizedConformance])
+@Witnessed([.utilities, .conformanceInit, .erasable])
 protocol Combinable {
   func combine(_ other: Self) -> Self
+}
+
+extension CombinableWitness {
+    struct Synthesized: Combinable {
+        var strategy: String
+        let context: Any
+        var contextType: String
+        init<Context>(context: Context, strategy: String? = nil) {
+            self.context = context
+            self.contextType = "\(String(describing: Context.self))"
+            self.strategy = strategy ?? "default"
+        }
+        func combine(_ other: Self) -> Self {
+            let table = CombinableWitness<Any>.Table()
+            guard let witness = table.witness(for: contextType, label: strategy) else {
+                fatalError("Table for \(Self.self) does not contain a registered witness for strategy: \(strategy)")}
+            let newValue = witness.combine(context, other.context)
+            return .init(context: newValue, strategy: strategy)
+        }
+    }
 }
 
 typealias Combining<T> = CombinableWitness<T>
@@ -20,7 +40,7 @@ extension Combining where A: Numeric {
   }
 
   static var prod: Combining {
-    return Combining { $0 + $1 }
+    return Combining { $0 * $1 }
   }
 }
 
