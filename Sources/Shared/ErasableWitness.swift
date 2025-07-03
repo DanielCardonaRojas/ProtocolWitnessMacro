@@ -26,7 +26,7 @@ public extension ErasableWitness {
 
     func register(strategy: String? = nil) {
         let table = Table()
-        table.register(self, label: strategy ?? "default")
+        table.register(self, strategy: strategy ?? "default")
     }
 }
 

@@ -26,12 +26,12 @@ public struct WitnessLookUpTable<WitnessType> {
 
     public func register<Witness: ErasableWitness>(
         _ witness: Witness,
-        label: String? = nil
+        strategy: String? = nil
     ) {
         let erasedWitness = witness.erased()
         table.write(
             type: witness.erasedType,
-            label: label,
+            label: strategy,
             witness: erasedWitness
         )
     }
