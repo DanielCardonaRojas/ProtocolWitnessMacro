@@ -19,7 +19,7 @@ public struct WitnessOptions: OptionSet {
     /// Generate a struct that generate a protocol conformance
     public static let erasable = WitnessOptions(rawValue: 1 << 2)
 
-    public static let synthesizedConformance: WitnessOptions = [.utilities, .erasable]
+    public static let synthesizedConformance: WitnessOptions = [WitnessOptions(rawValue: 1 << 3), .utilities, .erasable]
 
     public init(rawValue: Int) {
         self.rawValue = rawValue

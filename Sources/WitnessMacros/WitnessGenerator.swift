@@ -70,7 +70,7 @@ public enum WitnessGenerator {
     )
 
     // Conditionally add ErasableWitness conformance to the struct's inheritance clause
-    if containsOption(.synthesizedConformance, protocolDecl: protocolDecl) {
+    if containsOption(.erasable, protocolDecl: protocolDecl) {
         structDecl.inheritanceClause = InheritanceClauseSyntax(
             inheritedTypes: InheritedTypeListSyntax {
                 InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("ErasableWitness")))
